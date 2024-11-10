@@ -1,0 +1,12 @@
+class Calculator:
+    def add_numbers(self, first_number, second_number):
+        result = first_number + second_number 
+        return result
+
+calc = Calculator()
+
+first_number = random.randint(1,99)
+
+second_number = random.randint(0,9)
+
+print(calc.add_numbers(first_number, second_number))
