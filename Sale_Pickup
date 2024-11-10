@@ -1,0 +1,78 @@
+class Pickup:
+    def __init__(self, brand, model, price):
+        self.brand = brand
+        self.model = model
+        self.price = price
+        self.stock = True
+
+    def purchase(self):
+        if self.stock:
+            self.stock = False
+            print(f"La camioneta {self.brand} {self.model} a sido vendida a {self.price}")
+        else:
+            print(f"La camioneta {self.brand} {self.model} no esta disponible")
+
+class Client:
+    def __init__(self, name, user_id):
+        self.name = name
+        self.user_id = user_id
+        self.purchased_pickup = []
+
+    def purchase_pickup(self, pickup):
+        if pickup.stock:
+            pickup.purchase()
+            self.purchased_pickup.append(pickup)
+        else:
+            print(f"La camioneta {pickup.brand} {pickup.model} no esta disponible")
+
+class Concessionaire:
+    def __init__(self):
+        self.pickup = []
+        self.client = []
+
+    def add_pickup(self, pickup):
+        self.pickup.append(pickup)
+        print(f"La camioneta {pickup.brand} {pickup.model} a sido agregada")
+
+    def register_client(self, client):
+        self.client.append(client)
+        print(f"El usuario {client.name} a sido registrado")
+
+    def show_stock_pickup(self):
+        print("Camionetas disponible:")
+        for pickup in self.pickup:
+            if pickup.stock:
+                print(f"{pickup.brand} {pickup.model} a {pickup.price}")
+
+#Crear las camionetas
+pickup1 = Pickup("Mazda", "B2600 - 2005", "$10,000.00 USD")
+pickup2 = Pickup("Chevrolet", "Luv 4x2 - 1994", "$6,000.00 USD")
+pickup3 = Pickup("Toyota", "Hylux 4x4 - 2024", "$29,900.00 USD")
+
+#Crear usuarios
+client1 = Client("Jordan Belfort", "1001")
+client2 = Client("Benjamin Graham", "1002")
+
+#Crear Consesionaria
+concessionaire = Concessionaire()
+concessionaire.add_pickup(pickup1)
+concessionaire.add_pickup(pickup2)
+concessionaire.add_pickup(pickup3)
+concessionaire.register_client(client1)
+concessionaire.register_client(client2)
+
+#Mostar camionestas disponibles
+concessionaire.show_stock_pickup()
+
+#Realiza venta de camioneta
+client1.purchase_pickup(pickup2)
+client2.purchase_pickup(pickup1)
+
+#Mostar camionestas disponibles
+concessionaire.show_stock_pickup()
+
+#Mostar camionestas disponibles
+concessionaire.show_stock_pickup()
+
+#Cliente quiere comprar camioneta no disponible
+client2.purchase_pickup(pickup2)
